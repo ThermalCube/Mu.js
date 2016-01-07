@@ -1,6 +1,7 @@
 ///Mu.js - 2016 © by Nikolai Leesker
 //Managed by YuKay-Software-Development
 //v0.02a
+///Mu.js - 2016 © by Nikolai Leesker aka ThermalCube
 (function () {
 
 	"use strict";
@@ -142,4 +143,29 @@
 		}
 	}
 
-	µ.custom.add = function (name, proto, extend)
+	µ.custom.add = function (name, proto, extend) {
+		if (!name || !proto || name == "" || typeof proto != "object") return false;
+		if (name.indexOf("-") == -1) return false;
+
+		µ.custom.__check();
+
+		var conf = {
+			prototype: proto
+		};
+
+		if (extend) {
+			conf = {
+				prototype: proto,
+				extends: extend
+			};
+		}
+
+		var elem = document.registerElement(name, conf);
+
+		µ.custom.push([name, elem]);
+
+		return elem;
+
+	}
+
+})()
