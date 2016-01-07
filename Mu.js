@@ -1,6 +1,6 @@
 ///Mu.js - 2016 © by Nikolai Leesker
 //Managed by YuKay-Software-Development
-//v0.01a
+//v0.02a
 (function () {
 
 	"use strict";
@@ -129,4 +129,17 @@
 		return window["Mu"];
 	};
 
-})()
+	//List of custom Elements
+	µ.custom = [];
+
+	//INTERNAL: Check if browser supports registerElement and add Polyfill if needed
+	µ.custom.__check = function () {
+		if (!("registerElement" in document)) {
+			var x = document.createElement("script");
+			x.setAttribute("src", "//cdnjs.cloudflare.com/ajax/libs/document-register-element/0.5.3/document-register-element.js");
+			µ("head")[0].appendChild(x);
+			return x;
+		}
+	}
+
+	µ.custom.add = function (name, proto, extend)
